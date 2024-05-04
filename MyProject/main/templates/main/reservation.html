@@ -1,0 +1,88 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Секция  "Резервации" -->
+    <section class="section contact-section" id="next">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+
+              <form class="bg-white p-md-5 p-4 mb-5 border" action="{% url 'book_now' %}#next" method="post">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label class="text-black font-weight-bold" for="{{form.name.id_for_label}}">{{form.name.label}}</label>
+                    {{ form.name }}
+                  </div>
+
+                  <div class="col-md-6 form-group">
+                    <label class="text-black font-weight-bold" for="{{form.phone.id_for_label}}">{{form.phone.label}}</label>
+                    {{ form.name }}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label class="text-black font-weight-bold" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                    {{ form.email }}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label class="text-black font-weight-bold" for="{{ form.checkin.id_for_label }}">{{ form.checkin.label }}</label>
+                    {{ form.checkin }}
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label class="text-black font-weight-bold" for="{{ form.checkout.id_for_label }}">{{ form.checkout.label }}</label>
+                    {{ form.checkout }}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <label for="{{ form.adults.id_for_label }}" class="font-weight-bold text-black">{{ form.adults.label }}</label>
+                    <div class="field-icon-wrap">
+                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                      {{ form.adults}}
+                    </div>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label for="{{ form.children.id_for_label }}" class="font-weight-bold text-black">{{ form.children.label }}</label>
+                    <div class="field-icon-wrap">
+                      <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                      {{ form.children }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <div class="col-md-12 form-group">
+                    <label class="text-black font-weight-bold" for="{{ form.note_id_for_label }}">{{ form.note.label }}</label>
+                    {{ form.note }}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 form-group">
+                    <input type="submit" value="Резервирай" class="btn btn-primary text-white py-3 px-5 font-weight-bold">
+                  </div>
+                </div>
+              </form>
+
+            </div>
+            <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+              <div class="row">
+                <div class="col-md-10 ml-auto contact-info">
+                  <p><span class="d-block">Адрес:</span> <span>  2770 Банско  ул. "Георги Ковачев" №7</span></p>
+                  <p><span class="d-block">Телефон:</span> <span> (+1) 234 4567 8910</span></p>
+                  <p><span class="d-block">Email:</span> <span> aseva_bansko@abv.bg</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <!-- край на секцията-->
+
+{% endblock content %}
