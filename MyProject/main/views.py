@@ -40,7 +40,7 @@ def rooms(request):
     return render(request, 'main/rooms.html', context)
 
 
-# Create your views here.
+# Резервации
 def booking(request):
     form = BookNowForm()
     reviews = Review.objects.all()
