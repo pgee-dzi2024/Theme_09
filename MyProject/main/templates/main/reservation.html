@@ -79,6 +79,17 @@
                   <p><span class="d-block">Email:</span> <span> aseva_bansko@abv.bg</span></p>
                 </div>
               </div>
+              <div class="row">
+                {{ststus}}
+                {% if status == '2' %}
+                <div class="col-md-10 ml-auto contact-info" style="color: red">
+                  {{msg}}
+                </div>
+                {% elif status == '1' %}
+                <div class="col-md-10 ml-auto contact-info" style="color: green">
+                  {{msg}}
+                </div>
+                {% endif %}
             </div>
           </div>
         </div>

@@ -56,7 +56,7 @@ class BookedRoom(models.Model):
     room_num = models.IntegerField('Номер на стая', default=1)
     checkin = models.DateField('Дата на пристигане', auto_now=True)
     checkout = models.DateField('Дата на напускане', auto_now=True)
-    reservation_id = models.ForeignKey(Appointment, verbose_name='Допълнителни изисквания', on_delete=models.CASCADE)
+    reservation_id = models.ForeignKey(Appointment, verbose_name='Резервация', on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.room_num)

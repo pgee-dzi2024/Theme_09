@@ -1,3 +1,5 @@
+from math import ceil
+
 from django.shortcuts import render
 from .forms import *
 from .models import *
@@ -48,15 +50,48 @@ def booking(request):
                'selected': 'Резервации',
                'reviews': reviews,
                'form': form,
+               'msg': '',
+               'status': 0,
                }
     if request.method == 'POST':
         form = BookNowForm(request.POST)
         if form.is_valid():
             checkin = form.cleaned_data['checkin']
             checkout = form.cleaned_data['checkout']
-            print('checkin=', checkin)
-            print('checkout=', checkout)
-            print('checkin<checkout=', checkin < checkout)
+            nummer_of_rooms = ceil(int(form.cleaned_data['adults'])/2)
+            booked_rooms = BookedRoom.objects.filter(checkout__lte=checkout).filter(checkin__gte=checkout)
+            busy_rooms = set({})
+            free_rooms = []
+            for room in booked_rooms:
+                busy_rooms.add(int(room.room_num))
+            for i in range(1, 13):
+                if i not in busy_rooms:
+                    free_rooms.append(i)
+            if len(free_rooms) >= nummer_of_rooms:
+                new_app = Appointment.objects.create(
+                    name=form.cleaned_data['name'],
+                    phone=form.cleaned_data['phone'],
+                    email=form.cleaned_data['email'],
+                    checkin=form.cleaned_data['checkin'],
+                    checkout=form.cleaned_data['checkout'],
+                    adults=form.cleaned_data['adults'],
+                    children=form.cleaned_data['children'],
+                    note=form.cleaned_data['note'],
+                )
+                i = 0
+                for k in range(nummer_of_rooms):
+                    BookedRoom.objects.create(
+                        room_num=free_rooms[i],
+                        checkin=checkin,
+                        checkout=checkout,
+                        reservation_id=new_app,
+                    )
+                    i += 1
+                context['msg'] = 'Резервацията е приета'
+                context['status'] = 1
+            else:
+                context['msg'] = 'Няма достатъчно свободни стаи'
+                context['status'] = 2
 
     return render(request, 'main/reservation.html', context)
 
